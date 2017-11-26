@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
     coffee = require('gulp-coffee'),
+    browserify = require('gulp-browserify'),
     concat = require('gulp-concat');
 
 var coffeeSources = ['components/coffee/tagline.coffee'];
@@ -22,8 +23,10 @@ gulp.task('coffee', function(){
     .pipe(gulp.dest('components/scripts'))
 });
 
+// this combines all the javascript files together into a single file
 gulp.task('js', function(){
-  gulp.src(jsSources)
-    .pipe(concat('script.js'))
+  gulp.src(jsSources) // uses the array of files above to combine everything
+    .pipe(concat('script.js'))//makes a new file with this name
+    .pipe(browserify())
     .pipe(gulp.dest('builds/development/js'))
 });
