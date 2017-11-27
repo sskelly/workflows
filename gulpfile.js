@@ -44,4 +44,10 @@ gulp.task('compass', function(){
     .pipe(gulp.dest('builds/development/css'))
 });
 
+gulp.task('watch', function(){ // this will run everytime the file changes
+  gulp.watch(coffeeSources, ['coffee']);
+  gulp.watch(jsSources, ['js']);
+  gulp.watch('_components/sass/*.scss', ['compass']);
+});
+
 gulp.task('default',['coffee','js','compass']);
