@@ -50,4 +50,4 @@ gulp.task('watch', function(){ // this will run everytime the file changes
   gulp.watch('_components/sass/*.scss', ['compass']);
 });
 
-gulp.task('default',['coffee','js','compass']);
+gulp.task('default',['coffee','js','compass', 'watch']);
