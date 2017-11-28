@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     gulpif = require('gulp-if'),
     uglify = require('gulp-uglify'),
     minifyHTML = require('gulp-minify-html'),
+    jsonminify = require('gulp-jsonminify'),
     concat = require('gulp-concat');
 
 var env,
@@ -79,6 +80,7 @@ gulp.task('watch', function(){ // this will run everytime the file changes
   gulp.watch(jsSources, ['js']);
   gulp.watch('_components/sass/*.scss', ['compass']);
   gulp.watch('builds/development/*.html', ['html']);
+  gulp.watch('builds/development/js/*.json', ['json']);
   gulp.watch(jsonSources, ['js']);
 });
 
@@ -97,7 +99,9 @@ gulp.task('html', function(){
 });
 
 gulp.task('json', function(){
-  gulp.src(jsonSources)
+  gulp.src('builds/development/js/*.json')
+    .pipe(gulpif(env === 'production', jsonminify()))
+    .pipe(gulpif(env === 'production', gulp.dest('builds/production/js')))
     .pipe(connect.reload())
 });
 
